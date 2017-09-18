@@ -1,0 +1,6 @@
+Download the Notesapplication folder
+In that folder Run python manage.py runserver
+In browser type http://127.0.0.1:8000 You will be launced to Notes webapplication home page
+Click on the the editor icon then you will be asked for Notes details.
+Provide the details and click on submit
+Then you will get the note in the left menu.
