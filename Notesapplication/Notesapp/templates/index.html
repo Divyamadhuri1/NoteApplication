@@ -1,0 +1,111 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <title>Notes Application</title>
+    <style>
+        li {
+    float: left;
+}
+    </style>
+    <script>
+$(document).ready(function(){
+    $("#notepage").hide();
+    $.ajax({
+        url: '/Notesapp/getallnotes/',
+		type: 'GET',
+        success: function(result){
+         $("#allnotes").html(result);
+        },
+        error: function(error){
+            alert("error");
+        }
+    });
+    $("#editor").click(function(){
+        $("#notepage").show()
+    });
+
+    $("#addnote").click(function(){
+        $.ajax({
+        url: '/Notesapp/addnote/',
+		type: 'POST',
+		data: {"notehead":$("#notehead").val(),"note":$("#note").val()},
+        success: function(result){
+           alert(result);
+        },
+        error: function(error){
+            alert("error");
+        }});
+});
+
+$("#deletenote").click(function(){
+        $("#delnote").show()
+});
+
+
+/*
+$("#deletenote").click(function(){
+        alert($("#notehead").val());
+        alert($("#note").val());
+        $.ajax({
+        url: '/Notesapp/deletenote/',
+		type: 'POST',
+		data: {"notehead":$("#notehead").val()},
+        success: function(result){
+           alert(result);
+        },
+        error: function(error){
+            alert("error");
+        }});
+});*/
+
+});
+
+</script>
+
+</head>
+<body>
+<div>
+    <div>
+    <ul style="list-style-type:circle">
+        <li>&nbsp;&nbsp;&nbsp;</li>
+        <li>&nbsp;&nbsp;&nbsp;</li>
+        <li>&nbsp;&nbsp;&nbsp;</li>
+    </ul>
+        <button id="deletenote"><i class="fa fa-trash"></i></button>
+        <button id = "editor"><img border="0" alt="texteditor" src="{% static 'images/texteditor.jpg' %}" width="20" height="20"></button>
+    </div>
+    </div>
+    <hr>
+<!-- Sidebar -->
+<div id='allnotes' class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
+
+</div>
+
+<!-- Page Content -->
+<div style="margin-left:25%">
+
+<div class="w3-container w3-teal">
+
+</div>
+
+<div class="w3-container">
+<p>Write Note Here</p>
+    <div id="notepage" >
+            <form id="noteform">
+            Note Head <input id='notehead' type="text"><br/><br/>
+            Enter Note<textarea id="note"></textarea><br/><br/>
+            <button id="addnote">Submit</button>
+                </form>
+        </div>
+</div>
+</div>
+
+</body>
+</html>
